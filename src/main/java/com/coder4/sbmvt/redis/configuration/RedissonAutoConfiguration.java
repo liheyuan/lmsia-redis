@@ -1,5 +1,6 @@
 package com.coder4.sbmvt.redis.configuration;
 
+import com.coder4.sbmvt.redis.utils.RedissonUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -39,7 +40,7 @@ public class RedissonAutoConfiguration {
         Config config = new Config();
 
         config.useSingleServer()
-                .setAddress(server)
+                .setAddress(RedissonUtils.wrapSchema(server))
                 .setPassword(password)
                 .setRetryInterval(retryInterval)
                 .setConnectionPoolSize(connPoolSize);
