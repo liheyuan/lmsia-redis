@@ -18,7 +18,7 @@ import java.io.IOException;
 public class RedissonAutoConfiguration {
 
     // server list
-    private String serverAddr;
+    private String server;
 
     // redis password
     private String password;
@@ -29,17 +29,17 @@ public class RedissonAutoConfiguration {
     // retry interval in ms
     private int retryInterval = 100;
 
-    @Bean
+    @Bean(destroyMethod = "shutdown")
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient createRedissonClient() throws IOException {
-        if (getServerAddr() == null || getServerAddr().isEmpty()) {
-            throw new IllegalArgumentException("serverAddr is empty");
+        if (getServer() == null || getServer().isEmpty()) {
+            throw new IllegalArgumentException("server is empty");
         }
 
         Config config = new Config();
 
         config.useSingleServer()
-                .setAddress(serverAddr)
+                .setAddress(server)
                 .setPassword(password)
                 .setRetryInterval(retryInterval)
                 .setConnectionPoolSize(connPoolSize);
@@ -48,12 +48,12 @@ public class RedissonAutoConfiguration {
     }
 
 
-    public String getServerAddr() {
-        return serverAddr;
+    public String getServer() {
+        return server;
     }
 
-    public void setServerAddr(String serverAddr) {
-        this.serverAddr = serverAddr;
+    public void setServer(String server) {
+        this.server = server;
     }
 
     public String getPassword() {

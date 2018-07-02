@@ -21,7 +21,7 @@ import java.util.List;
 public class RedissonSentinelAutoConfiguration {
 
     // server list
-    private String sentinelAddr;
+    private String sentinelServerList;
 
     // sentinel master name
     private String masterName;
@@ -35,10 +35,10 @@ public class RedissonSentinelAutoConfiguration {
     // retry interval in ms
     private int retryInterval = 100;
 
-    @Bean
+    @Bean(destroyMethod = "shutdown")
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient createRedissonClient() throws IOException {
-        List<String> sentinelAddrs = RedissonUtils.splitStr(sentinelAddr);
+        List<String> sentinelAddrs = RedissonUtils.splitStr(sentinelServerList);
         if (sentinelAddrs == null || sentinelAddrs.size() == 0) {
             throw new IllegalArgumentException("sentinel address is empty");
         }
@@ -58,12 +58,12 @@ public class RedissonSentinelAutoConfiguration {
     }
 
 
-    public String getSentinelAddr() {
-        return sentinelAddr;
+    public String getSentinelServerList() {
+        return sentinelServerList;
     }
 
-    public void setSentinelAddr(String sentinelAddr) {
-        this.sentinelAddr = sentinelAddr;
+    public void setSentinelServerList(String sentinelServerList) {
+        this.sentinelServerList = sentinelServerList;
     }
 
     public String getMasterName() {
