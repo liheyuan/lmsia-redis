@@ -8,8 +8,8 @@ targetCompatibility = 1.8
 
 // Use as maven groupId/artifactId/version
 group = 'com.coder4.lmsia'
-project.archivesBaseName = 'redis'
-project.version = '0.0.4'
+project.archivesBaseName = 'redission'
+project.version = '0.0.5'
 
 // source & javadoc pom
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -26,11 +26,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.springframework.boot:spring-boot-autoconfigure:1.5.6.RELEASE'
-    compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
+    compileOnly 'org.springframework.boot:spring-boot-autoconfigure:2.2.0.RELEASE'
+    compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
     compileOnly 'ch.qos.logback:logback-classic:1.2.3'
 
-    compile 'org.redisson:redisson:3.7.3'
+    compile 'org.redisson:redisson:3.12.0'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
